@@ -62,8 +62,8 @@ const startServer = async () => {
             // Check if the user already exists
             const existingUser = await User.findOne({
                 $or: [
-                    { id: "BB0000" },  // Check for duplicate empId
-                    { mobile: "1112223330" }  // Check for duplicate empMobile
+                    { id: "BB0001" },  // Check for duplicate empId
+                    { mobile: "9415285000" }  // Check for duplicate empMobile
                 ]
             });
 
@@ -72,12 +72,12 @@ const startServer = async () => {
             } else {
                 // Create a new user (just an example)
                 const newUser = new User({
-                    id: "BB0000", // Example empId
-                    name: "Rakesh Kumar", // Example name
-                    mobile: "1112223330", // Example mobile
+                    id: "BB0001", // Example empId
+                    name: "Avnesh pratap singh", // Example name
+                    mobile: "9415285000", // Example mobile
                     role: "admin", // Example role
-                    email: "johndoe@example.com", // Example email
-                    password: "123987", // This will be hashed automatically in the model
+                    email: "rakesh@businessbasket.in", // Example email
+                    password: "Avnesh123@", // This will be hashed automatically in the model
                     gender: "male", // This will be hashed automatically in the model
                     department: "admin", // This will be hashed automatically in the model
                 });

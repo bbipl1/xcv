@@ -36,11 +36,12 @@ const saveToDatabase = async (data) => {
             // const hashedPassword = await bcrypt.hash(String(item.EmpPassword), 10);
             const hashedPassword=item.Password;
             // console.log(item.EmpName.trim().toLowerCase())
+            console.log(hashedPassword)
             const user = new User({
                 id: item.Id?.trim(),
                 name: item.Name?.trim(),
                 mobile: item.Mobile?.toString().trim().toLowerCase(),
-                password: hashedPassword?.toString().trim().toLowerCase(),
+                password: hashedPassword?.toString().trim(),
                 role: item.Role?.trim().toLowerCase() || 'Employee',
                 email: item.Email?.trim().toLowerCase() || '',
                 department: item.Department?.trim().toLowerCase() || '',

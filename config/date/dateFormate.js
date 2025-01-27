@@ -1,5 +1,5 @@
 const dateNow = new Date();
-const day = (dateNow.getDate()-20).toString().padStart(2,"0");
+const day = (dateNow.getDate()).toString().padStart(2,"0");
 const month = (dateNow.getMonth()+1).toString().padStart(2,"0");
 const year = dateNow.getFullYear();
 const dateFormate=`${day}-${month}-${year}`

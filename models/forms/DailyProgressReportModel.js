@@ -115,6 +115,13 @@ const schema = {
     type: Date,
     default: Date.now,
   },
+  remarks: {
+    type: String,
+    trim: true,
+    required: true,
+    unique: false,
+  },
+
 };
 const DailyProgressReportSchema = new mongoose.Schema(schema);
 const DailyProgressReportModel = mongoose.model(

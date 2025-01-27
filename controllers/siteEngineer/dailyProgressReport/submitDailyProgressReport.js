@@ -61,6 +61,7 @@ const submitDailyProgressReport = async (req, res) => {
         todaysWork,
         machinaryUsed,
         expenses,
+        remarks
       } = req.body;
 
       console.log(typeof Array(req.body.expenses.type))
@@ -81,7 +82,7 @@ const submitDailyProgressReport = async (req, res) => {
         id,date:dateFormate
       });
 
-    //   console.log('d',existingSiteEngineer)
+      // console.log('d',existingSiteEngineer)
       if (existingSiteEngineer) {
         return res.status(400).json({ message: "Site Engineer already exists." });
       }
@@ -109,9 +110,10 @@ const submitDailyProgressReport = async (req, res) => {
         date:dateFormate,
         time:timeIn12HourFormat,
         day:dayName,
+        remarks
       };
 
-    //   console.log(reportData)
+      // console.log(reportData)
 
       // Save the report to MongoDB
       const report = new  DailyProgressReportModel(reportData);

@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
     trim: true,
-    unique:true,
+    unique:false,
   },
   password: {
     type: String,
@@ -72,6 +72,7 @@ userSchema.pre("save", async function (next) {
 
 // Method to compare the entered password with the stored hashed password
 userSchema.methods.comparePassword = async function (password) {
+  console.log(password)
   return await bcrypt.compare(password, this.password);
 };
 
