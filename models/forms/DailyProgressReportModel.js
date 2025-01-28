@@ -55,12 +55,13 @@ const schema = {
     required: true,
     unique: false,
   },
+
   todaysWork: [{ type: String, trim: true, required: true, unique: false }],
   machinaryUsed: [{ type: String, trim: true, required: true, unique: false }],
   expenses: {
     Category: [
       {
-        type:String,
+        type: String,
         trim: true,
         required: true,
         unique: false,
@@ -93,6 +94,27 @@ const schema = {
       default: "Unpaid",
     },
   },
+paymentScreenshots: [
+    {
+      url: {
+        type: String,
+        trim: true,
+        required: true, 
+      },
+      uploadedAt: {
+        type: String,
+        trim: true,
+        required: true,  
+      },
+      remarks: {
+        type: String,
+        trim: true,
+        required: false,
+      },
+    },
+  ],
+  photos: [{ type: String, trim: true, required: false, unique: true }],
+  videos: [{ type: String, trim: true, required: false, unique: true }],
   date: {
     type: String,
     trim: true,
@@ -111,17 +133,16 @@ const schema = {
     required: true,
     unique: false,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
   remarks: {
     type: String,
     trim: true,
     required: true,
     unique: false,
   },
-
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 };
 const DailyProgressReportSchema = new mongoose.Schema(schema);
 const DailyProgressReportModel = mongoose.model(

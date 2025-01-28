@@ -7,6 +7,8 @@ const getAllWorkers = require('../controllers/siteEngineer/getWorkerControllers'
 const submitDailyProgressReport = require('../controllers/siteEngineer/dailyProgressReport/submitDailyProgressReport');
 const { progressReportFileUpload } = require('../uploads/progressReportFileUpload');
 const findDailyProgressReport = require('../controllers/siteEngineer/dailyProgressReport/getDailyProgressReport');
+const { uploadPaymentScreenshots } = require('../controllers/siteEngineer/dailyProgressReport/updateScreenshotsControllers');
+const upload=require("../middlewares/uploadScreenshots")
 
 // Route to handle attendance form submission
 router.get('/get-all-site-engineers', getAllSiteEngineers);
@@ -15,6 +17,7 @@ router.post('/add-worker',workerPhotoUpload, addWorker);
 router.get('/get-all-workers',getAllWorkers);
 router.post('/submit-daily-progress-report',submitDailyProgressReport);
 router.get('/get-all-daily-progress-report',findDailyProgressReport);
+router.post('/upload-payment-screenshots',upload,uploadPaymentScreenshots);
 
 
 
