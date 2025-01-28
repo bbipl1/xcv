@@ -16,6 +16,7 @@ const s3 = new S3Client({
 const progressReportFileUpload = multer({
   storage: multerS3({
     s3: s3,
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     bucket: process.env.AWS_S3_BUCKET_NAME, // Set your bucket name
     acl: "public-read", // Files will be publicly accessible
     key: function (req, file, cb) {
