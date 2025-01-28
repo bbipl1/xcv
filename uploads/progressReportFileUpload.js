@@ -24,7 +24,7 @@ const progressReportFileUpload = multer({
       const day = String(now.getDate()).padStart(2, "0");
       const month = String(now.getMonth() + 1).padStart(2, "0");
       const year = now.getFullYear();
-      const formattedDate = `${day}--${month}--${year}`;
+      const formattedDate = `${day}-${month}-${year}`;
       const fileExtension = path.extname(file.originalname); // Extract file extension
       const fileBaseName = path
         .basename(file.originalname, fileExtension)
