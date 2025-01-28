@@ -94,17 +94,17 @@ const schema = {
       default: "Unpaid",
     },
   },
-paymentScreenshots: [
+  paymentScreenshots: [
     {
       url: {
         type: String,
         trim: true,
-        required: true, 
+        required: true,
       },
       uploadedAt: {
         type: String,
         trim: true,
-        required: true,  
+        required: true,
       },
       remarks: {
         type: String,
@@ -113,8 +113,44 @@ paymentScreenshots: [
       },
     },
   ],
-  photos: [{ type: String, trim: true, required: false, unique: true }],
-  videos: [{ type: String, trim: true, required: false, unique: true }],
+  photos: [
+    {
+      url: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      uploadedAt: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      remarks: {
+        type: String,
+        trim: true,
+        required: false,
+      },
+    },
+  ],
+  videos: [
+    {
+      url: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      uploadedAt: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      remarks: {
+        type: String,
+        trim: true,
+        required: false,
+      },
+    },
+  ],
   date: {
     type: String,
     trim: true,

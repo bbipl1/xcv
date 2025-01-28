@@ -14,7 +14,7 @@ const s3 = new S3Client({
 
 // Validation: Max file size (5 MB per file) and allowed file types
 const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
-const allowedFileTypes = ["image/jpeg","image/jpg", "image/png", "application/pdf"]; // Adjust as needed
+const allowedFileTypes = ["image/jpeg","image/jpg", "image/png", "application/pdf","video/mp4"]; // Adjust as needed
 
 // File filter for Multer
 const fileFilter = (req, file, cb) => {
@@ -40,7 +40,7 @@ const generalFileUpload = (folderName) =>
         const formattedDate = `${day}--${month}--${year}`;
         const fileExtension = path.extname(file.originalname);
         const fileBaseName = path
-          .basename(file.originalname, fileExtension)
+          .basename("aws")
           .replace(/\s+/g, "_");
         const timestamp = Date.now();
         const folder = folderName || "general"; // Use provided folder or default to "general"
