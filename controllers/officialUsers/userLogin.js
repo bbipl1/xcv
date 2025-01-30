@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const User = require('../models/userModel');
+const User = require('../../models/userModel');
 
 // Login functionality using empId or empMobile
 const userLogin = async (req, res) => {

@@ -2,8 +2,16 @@ const DailyProgressReportModel=require("../../../models/forms/DailyProgressRepor
 
 const findDailyProgressReport=async(req,res)=>{
 try {
+
+    const {id}=req.query;
+    let data={};
+    if(id){
+        data=await DailyProgressReportModel.find({id});
+    }else{
+
+        data=await DailyProgressReportModel.find();
+    }
     
-    const data=await DailyProgressReportModel.find();
     if(data){
         return res.status(201).json({message:"Data found",data:data});
     }else{

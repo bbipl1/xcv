@@ -16,6 +16,8 @@ const getSiteEngineer = async (req, res) => {
     // Fetch the site engineer
     const siteEngineer = await SiteEngineersModel.findOne(query);
 
+    // console.log(site)
+
     if (siteEngineer) {
       res.status(200).json({
         success: true,

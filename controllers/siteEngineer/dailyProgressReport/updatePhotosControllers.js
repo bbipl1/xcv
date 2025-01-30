@@ -29,7 +29,7 @@ const uploadPhotos = async (req, res, next) => {
     if (!report) {
         return res.status(404).json({ error: "Record not found" });
     }
-    console.log(req.files)
+    // console.log(req.files)
 
     // Construct screenshot objects from uploaded files
     const photos = req.files?.photos?.map((file) => ({

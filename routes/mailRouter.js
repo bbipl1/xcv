@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { uploadFile,userFileUpload } = require('../controllers/userFileUploadControllers.js');
+// const { uploadFile,userFileUpload } = require('../controllers/userFileUploadControllers.js');
 const {sendEmail}=require('../controllers/sendEmailController.js')
 
 

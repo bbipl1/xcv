@@ -1,5 +1,5 @@
 const multer = require('multer');
-const service = require('../services/xlxCsvFileUpload'); // Assuming you have a service file to handle the file logic
+const service = require('../../services/xlxCsvFileUpload'); // Assuming you have a service file to handle the file logic
 
 // Multer setup for in-memory file handling
 const upload = multer({ storage: multer.memoryStorage() });
