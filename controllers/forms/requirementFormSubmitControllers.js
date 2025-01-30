@@ -1,24 +1,19 @@
 const RequirementsFormModel = require('../../models/RequirementsFormModel');
-
-const submitForm = async (req, res) => {
+const {dayName,dateFormate,timeIn12HourFormat}=require("../../config/date/dateFormate")
+const submitRequirementsForm = async (req, res) => {
     try {
         const {
-            empType,
-            empName,
-            empId,
-            empMobile,
+            name,
+            id,
+            mobile,
             state,
             district,
             block,
             siteName,
             workType,
-            date,
             dateOfRequirement,
-            requirementType,
-            expensesAmount,
-            expensesType,
-            paymentMethod,
-            paymentStatus,
+            materialUsed,
+            requirements,
             remarks,
         } = req.body;
 
@@ -26,22 +21,17 @@ const submitForm = async (req, res) => {
 
         // Validate required fields
         if (
-            !empType ||
-            !empName ||
-            !empId ||
-            !empMobile ||
+            !name ||
+            !id ||
+            !mobile ||
             !state ||
             !district ||
             !block ||
             !siteName ||
             !workType ||
-            !date ||
             !dateOfRequirement ||
-            !requirementType ||
-            !expensesAmount ||
-            !expensesType ||
-            !paymentMethod ||
-            !paymentStatus ||
+            !materialUsed ||
+            !requirements ||
             !remarks
         ) {
             return res.status(400).json({ message: "All fields are required." });
@@ -49,22 +39,20 @@ const submitForm = async (req, res) => {
 
         // Prepare data object with schema-compliant field names
         const data = {
-            empType,
-            empId,
-            empName,
-            empMobile,
-            stateName:state,
-            districtName:district,
-            blockName:block,
+            id,
+            name,
+            mobile,
+            state,
+            district,
+            block,
             siteName,
-            workTypeName:workType,
-            date,
+            workType,
+            date:dateFormate,
+            time:timeIn12HourFormat,
+            day:dayName,
             dateOfRequirement,
-            requirementType,
-            expensesAmount,
-            expensesType,
-            paymentMethod,
-            paymentStatus,
+            requirements,
+            materialUsed,
             remarks,
         };
 
@@ -84,4 +72,4 @@ const submitForm = async (req, res) => {
     }
 };
 
-module.exports = submitForm;
+module.exports = submitRequirementsForm;

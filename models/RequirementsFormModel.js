@@ -1,97 +1,121 @@
-const mongoose=require('mongoose');
-const requirementsFormSchema=new mongoose.Schema({
-    empType:{
-        type:String,
-        required:true,
-        trim:true,
+const mongoose = require("mongoose");
+const requirementsFormSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  id: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  mobile: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+
+  state: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  district: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  block: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  siteName: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  workType: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  materialUsed: [
+    {
+      name: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: false,
+      },
+      quantity: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: false,
+      },
+      price: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: false,
+      },
+      remarks: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: false,
+      },
     },
-    empName:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    empId:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    empMobile:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    date:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    stateName:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    districtName:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    blockName:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    siteName:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    workTypeName:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    dateOfRequirement:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    requirementType:{
-        type:String,
-        required:true,
-        trim:true,
-        
-    },
-    expensesAmount:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    expensesType:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    paymentMethod:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    paymentStatus:{
-        type:String,
-        required:true,
-        trim:true,
-        enum: ['Received', 'Pending'],
-    },
-    remarks:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
+  ],
+  requirements: { type: String, required: true, trim: true, unique: false },
+  dateOfRequirement: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  date: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  time: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  day: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
+  remarks: {
+    type: String,
+    required: false,
+    trim: true,
+    unique: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const requirementsFormModel=mongoose.model("requirementsForms",requirementsFormSchema);
-module.exports=requirementsFormModel;
+const requirementsFormModel = mongoose.model(
+  "requirementsForms",
+  requirementsFormSchema
+);
+module.exports = requirementsFormModel;

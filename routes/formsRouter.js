@@ -1,9 +1,9 @@
 const express=require('express');
 const router=express.Router();
-const submitForm=require('../controllers/forms/requirementFormSubmitControllers');
+const submitRequirementsForm=require('../controllers/forms/requirementFormSubmitControllers');
 const getAllForms = require('../controllers/formsGetRequirementsFormsControllers');
 const updatePaymentStatusByObjectId = require('../controllers/forms/updateRequirement');
-router.post("/submit-form",submitForm)
+router.post("/submit-requirements-form",submitRequirementsForm)
 router.get("/get-requirements-forms",getAllForms)
 router.put("/update-requirements-forms",updatePaymentStatusByObjectId)
 
