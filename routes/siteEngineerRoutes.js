@@ -17,6 +17,9 @@ const deleteWorkers = require('../controllers/siteEngineer/deleteWorkerControlle
 const { getDeletedWorkers } = require('../controllers/siteEngineer/getAllDeletedWorker');
 const uploadProfilePicForSiteEng = require('../middlewares/siteEng/siteEngProfilePic');
 const updateProfilePicForSiteEngControllers = require('../controllers/siteEngineer/profile/updateProfilePicCotrollers');
+const submitManpowerAttendControllers = require('../controllers/siteEngineer/ManpowerAttendance/submitManpowAttendControllers');
+const workerAttendPhotoUploadMiddleware = require('../middlewares/siteEng/manpowAttendMiddleWare');
+const getManPowerAttendance = require('../controllers/siteEngineer/ManpowerAttendance/getManPowAttendanceControllers');
 
 // Route to handle attendance form submission
 router.get('/get-all-site-engineers', getAllSiteEngineers);
@@ -26,6 +29,8 @@ router.put('/delete-worker',deleteWorkers);
 router.get('/get-all-workers',getAllWorkers);
 router.get('/get-all-deleted-workers',getDeletedWorkers);
 router.post('/submit-daily-progress-report',submitDailyProgressReport);
+router.post('/submit-manpower-attendance',workerAttendPhotoUploadMiddleware, submitManpowerAttendControllers);
+router.get('/get-manpower-attendance', getManPowerAttendance);
 router.get('/get-all-daily-progress-report',findDailyProgressReport);
 router.post('/upload-payment-screenshots',upload,uploadPaymentScreenshots);
 router.post('/upload-photos',uploadPhotosMW,uploadPhotos);

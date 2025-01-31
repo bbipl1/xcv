@@ -13,7 +13,7 @@ const s3 = new S3Client({
 });
 
 // Validation: Max file size (5 MB per file) and allowed file types
-const MAX_SIZE = 25 * 1024 * 1024; // 25 MB
+const MAX_SIZE = 250 * 1024 * 1024; // 250 MB
 const allowedFileTypes = ["image/jpeg","image/jpg", "image/png", "application/pdf","video/mp4"]; // Adjust as needed
 
 // File filter for Multer

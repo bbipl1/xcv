@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const schema = {
   siteEngObjId: {
-    type: mongoose.Types.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId, //user object id
     ref: "SiteEngineers",
     trim: true,
     unique: false,
@@ -47,21 +47,16 @@ const schema = {
     },
   },
 
-  photoURL: {
+  URL: {
     type: String,
     trim: true,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false,
   },
-  videoURL: {
-    type: String,
-    trim: true,
-    required: true,
-    unique: true,
-  },
+  
   workers: [
     {
-      details: {
+      objId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Workers",
         trim: true,
