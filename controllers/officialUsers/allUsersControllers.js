@@ -4,7 +4,7 @@ const User = require('../../models/userModel'); // Import the User model
 const getAllUsers = async (req, res) => {
   try {
     // Fetch all users from the User model
-    const users = await User.find();
+    const users = await User.find().sort({id:1});
 
     // Send the response with the list of users
     res.status(200).json({
