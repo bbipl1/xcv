@@ -5,7 +5,7 @@ const User = require('../../models/userModel');
 // Login functionality using empId or empMobile
 const userLogin = async (req, res) => {
     const { empId, empMobile, empPassword,empDepartment } = req.body;
-    console.log(req.body)
+    // console.log(req.body)
     // console.log(empMobile)
     // console.log(empPassword)
     // return ;

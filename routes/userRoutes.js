@@ -7,10 +7,12 @@ const { contactUs } = require('../controllers/contactUsControllers.js');
 const { getAllContactusMessages } = require('../controllers/getAllContactusMessages.js');
 const { updateContact, updateContactUsMessages } = require('../controllers/updateContactUsMessages.js');
 const getUser = require('../controllers/officialUsers/getUserController.js');
+const updateUserpass = require('../controllers/officialUsers/updateUserPasssControllers.js');
 
 // Route to handle attendance form submission
 router.post('/upload-users-details', uploadFile,userFileUpload);
 router.post('/user-login', userLogin);
+router.put('/user-update-password', updateUserpass);
 router.get('/all-users', getAllUsers);
 router.get('/get-user', getUser);
 router.post('/contact-us',contactUs );
