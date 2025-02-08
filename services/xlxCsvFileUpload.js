@@ -34,8 +34,17 @@ const saveToDatabase = async (data) => {
         const savePromises = data.map(async (item) => {
             
             // const hashedPassword = await bcrypt.hash(String(item.EmpPassword), 10);
+            if(!item){
+                return ;
+            }
             const hashedPassword=item.Password;
             // console.log(item.EmpName.trim().toLowerCase())
+            const filter={$or:[{id:item.Id},{mobile:item.MObile}]}
+            const duplicate=User.findOne(filter);
+            if(duplicate){
+                console.log("duplicate user found having mobile no:",item?.Mobile)
+                return;
+            }
             console.log(hashedPassword)
             const user = new User({
                 id: item.Id?.trim(),
@@ -49,7 +58,7 @@ const saveToDatabase = async (data) => {
             });
 
             // Save each user document using .save()
-            return user.save();
+            return await user.save();
         });
 
         // Wait for all save operations to complete

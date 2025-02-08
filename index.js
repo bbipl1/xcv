@@ -20,6 +20,7 @@ const upload=multer();
 
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const userRoutes = require('./routes/userRoutes');
+const endUserRoutes = require('./routes/endUser/endUserRouter');
 const mailRouter =require("./routes/mailRouter");
 const formsRouter=require('./routes/formsRouter');
 const sitesManagementRouter=require("./routes/sitesManagementRouter");
@@ -40,6 +41,10 @@ server.use('/api/forms', formsRouter); // router for forms
 server.use('/api/site-management',sitesManagementRouter ); // router for siteDetails
 //site-engineers
 server.use('/api/constructions/site-engineers',siteEngineerRoutes)
+
+//----------------START-END-USER-----------------------------------------------------------------------------------------
+server.use("/api/end-users",endUserRoutes)
+//----------------END-END-USER-------------------------------------------------------------------------------------------
 
 // Root endpoint to check if server is working fine
 server.get("/", (req, res) => {

@@ -12,4 +12,6 @@ const timeIn12HourFormat = dateNow.toLocaleTimeString('en-US', {
     hour12: true, // Use 12-hour clock (AM/PM)
   });
 
+  console.log(timeIn12HourFormat)
+
 module.exports={day,dayName,month,monthName,year,dateFormate,timeIn12HourFormat}
