@@ -1,5 +1,5 @@
 const siteEngAttendanceModel = require("../../../models/siteEngAttendanceModel");
-const {dayName,time,dateFormate,timeIn12HourFormat}=require("../../../config/date/dateFormate")
+const {getCurrentDateTime}=require("../../../config/date/dateFormate")
 
 const submitManpowerAttendControllers = async (req, res) => {
   try {
@@ -8,8 +8,8 @@ const submitManpowerAttendControllers = async (req, res) => {
     let workers = req.body.workers;
     let jsonWorker = JSON.parse(workers);
     let files = req.files;
-    console.log(jsonWorker);
-    console.log(files);
+    // console.log(jsonWorker);
+    // console.log(files);
     const workersDetails = jsonWorker.map((worker) => {
       const matchingFile = files.find(
         (file) => file.fieldname === `photo_${worker.workerId}`
@@ -35,9 +35,9 @@ const submitManpowerAttendControllers = async (req, res) => {
 
         siteEngObjId,
         siteEngId:siteEngID,
-        date:dateFormate,
-        day:dayName,
-        time:timeIn12HourFormat,
+        date:getCurrentDateTime().dateFormate,
+        day:getCurrentDateTime().dayName,
+        time:getCurrentDateTime().timeIn12HourFormat,
         'siteLocation.latitude':latitude,
         'siteLocation.longitude':longitude,
         URL:null,
@@ -46,7 +46,7 @@ const submitManpowerAttendControllers = async (req, res) => {
 
     }
 
-    console.log(payLoads);
+    // console.log(payLoads);
 
     const newAttendance= new siteEngAttendanceModel(payLoads);
     const resp=await newAttendance.save();

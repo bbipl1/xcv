@@ -4,7 +4,7 @@ const getManPowerAttendance=async(req,res)=>{
 
     try {
 
-        const response=await siteEngAttendanceModel.find().populate("workers");
+        const response=await siteEngAttendanceModel.find().populate("workers.objId");
         if(response){
             return res.status(200).json({message:"data fetched success",data:response});
         }else{

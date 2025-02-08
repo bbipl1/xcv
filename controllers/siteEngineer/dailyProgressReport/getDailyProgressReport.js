@@ -9,7 +9,7 @@ try {
         data=await DailyProgressReportModel.find({id});
     }else{
 
-        data=await DailyProgressReportModel.find();
+        data=await DailyProgressReportModel.find().sort({date:1});
     }
     
     if(data){

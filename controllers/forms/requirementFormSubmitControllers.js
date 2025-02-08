@@ -1,5 +1,5 @@
 const RequirementsFormModel = require('../../models/RequirementsFormModel');
-const {dayName,dateFormate,timeIn12HourFormat}=require("../../config/date/dateFormate")
+const {getCurrentDateTime}=require("../../config/date/dateFormate")
 const submitRequirementsForm = async (req, res) => {
     try {
         const {
@@ -47,9 +47,9 @@ const submitRequirementsForm = async (req, res) => {
             block,
             siteName,
             workType,
-            date:dateFormate,
-            time:timeIn12HourFormat,
-            day:dayName,
+            date:getCurrentDateTime().dateFormate,
+            time:getCurrentDateTime().timeIn12HourFormat,
+            day:getCurrentDateTime().dayName,
             dateOfRequirement,
             requirements,
             materialUsed,

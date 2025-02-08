@@ -3,12 +3,7 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const path = require("path");
 const DailyProgressReportModel = require("../../../models/forms/DailyProgressReportModel");
-const {
-  dayName,
-  time,
-  dateFormate,
-  timeIn12HourFormat,
-} = require("../../../config/date/dateFormate");
+const { getCurrentDateTime } = require("../../../config/date/dateFormate");
 
 // AWS SDK v3 configuration
 const s3Client = new S3Client({
@@ -109,8 +104,9 @@ const updateDailyProgressReport = async (req, res) => {
           required: expenses.required,
           received: "0",
         },
-        time: timeIn12HourFormat,
-        day: dayName,
+        date:getCurrentDateTime().dateFormate,
+        time:getCurrentDateTime().timeIn12HourFormat,
+        day:getCurrentDateTime().dayName,
         remarks,
       };
 

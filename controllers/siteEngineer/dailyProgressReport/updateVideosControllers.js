@@ -1,5 +1,5 @@
 const DailyProgressReportModel = require("../../../models/forms/DailyProgressReportModel");
-const {dateFormate}=require("../../../config/date/dateFormate")
+const {getCurrentDateTime}=require("../../../config/date/dateFormate")
 /**
  * Upload payment screenshots and update the database record.
  * Filters based on `id` and `date`, then updates the `paymentScreenshots` field.
@@ -34,7 +34,7 @@ const uploadVideo = async (req, res, next) => {
     // Construct screenshot objects from uploaded files
     const videos = req.files?.videos?.map((file) => ({
       url: file.location, // S3 file URL
-      uploadedAt: dateFormate,
+      uploadedAt: getCurrentDateTime().dateFormate,
       remarks: req.body.remarks || "", // Optional remarks from the request
     }));
 
