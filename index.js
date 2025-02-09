@@ -27,11 +27,15 @@ const sitesManagementRouter=require("./routes/sitesManagementRouter");
 const attendanceOfDevAndFinRouter = require("./routes/attendanceOfDevAndFinRoutes");
 const siteEngineerRoutes = require("./routes/siteEngineerRoutes");
 const addSiteEng=require("./services/userService");
+const adminRoutes=require("./routes/adminRoutes");
 // Middleware
 server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
+//-----------------------Admin-Start---------------------------------
+server.use("/api/admin",adminRoutes)
+//-----------------------Admin-End-----------------------------------
 // Use the routes
 server.use('/api', attendanceRoutes); // router for attendance
 server.use('/api/attendance/dev-and-fin', attendanceOfDevAndFinRouter); // router for attendance
