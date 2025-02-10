@@ -14,6 +14,8 @@ const uploadVideo = async (req, res, next) => {
     // console.log(req.files)
     // console.log(req.body)
     // Validate request
+
+    const dateFormate=getCurrentDateTime().dateFormate;
     if (!id || !dateFormate) {
       return res.status(400).json({ error: "Both `id` and `date` are required" });
     }
@@ -34,7 +36,7 @@ const uploadVideo = async (req, res, next) => {
     // Construct screenshot objects from uploaded files
     const videos = req.files?.videos?.map((file) => ({
       url: file.location, // S3 file URL
-      uploadedAt: getCurrentDateTime().dateFormate,
+      uploadedAt:dateFormate,
       remarks: req.body.remarks || "", // Optional remarks from the request
     }));
 

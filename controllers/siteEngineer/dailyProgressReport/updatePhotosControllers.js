@@ -1,5 +1,5 @@
 const DailyProgressReportModel = require("../../../models/forms/DailyProgressReportModel");
-const {dateFormate}=require("../../../config/date/dateFormate")
+const {getCurrentDateTime}=require("../../../config/date/dateFormate")
 /**
  * Upload payment screenshots and update the database record.
  * Filters based on `id` and `date`, then updates the `paymentScreenshots` field.
@@ -14,6 +14,7 @@ const uploadPhotos = async (req, res, next) => {
     // console.log(req.files)
     // console.log(req.body)
     // Validate request
+    const dateFormate=getCurrentDateTime().dateFormate;
     if (!id || !dateFormate) {
       return res.status(400).json({ error: "Both `id` and `date` are required" });
     }
