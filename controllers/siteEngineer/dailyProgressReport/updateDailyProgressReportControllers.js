@@ -6,6 +6,7 @@ const DailyProgressReportModel = require("../../../models/forms/DailyProgressRep
 const { getCurrentDateTime } = require("../../../config/date/dateFormate");
 
 // AWS SDK v3 configuration
+const dateFormate=getCurrentDateTime().dateFormate;
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
   credentials: {

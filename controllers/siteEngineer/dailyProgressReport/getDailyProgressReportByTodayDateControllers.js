@@ -6,6 +6,7 @@ try {
 
     const {id}=req.query;
     let data={};
+    console.log("i am",id)
     const filter={$and:[{id},{date:dateFormate}]}
     if(id){
         data=await DailyProgressReportModel.findOne(filter);
