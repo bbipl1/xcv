@@ -6,6 +6,10 @@ const DailyProgressReportModel = require("../../../models/forms/DailyProgressRep
 const {getCurrentDateTime}=require("../../../config/date/dateFormate")
 
 // AWS SDK v3 configuration
+const dateFormate=getCurrentDateTime().dateFormate;
+const timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
+const dayName=getCurrentDateTime().dayName;
+
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
   credentials: {
@@ -107,9 +111,9 @@ const submitDailyProgressReport = async (req, res) => {
             required:expenses.required,
             received:"0",
         },
-        date:getCurrentDateTime().dateFormate,
-        time:getCurrentDateTime().timeIn12HourFormat,
-        day:getCurrentDateTime().dayName,
+        date:dateFormate,
+        time:timeIn12HourFormat,
+        day:dayName,
         remarks
       };
 

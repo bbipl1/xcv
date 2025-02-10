@@ -5,6 +5,11 @@ const path = require("path");
 const Worker = require("../../models/workerModel");
 const SiteEngineer = require("../../models/siteEngineerModel");
 const mongoose = require("mongoose");
+const {getCurrentDateTime}=require("../../config/date/dateFormate")
+
+const date=getCurrentDateTime().dateFormate;
+const time=getCurrentDateTime().timeIn12HourFormat;
+const day=getCurrentDateTime().dayName;
 
 // Create an S3 Client instance
 const s3 = new S3Client({
@@ -82,6 +87,9 @@ const addWorker = async (req, res) => {
     const newWorker = new Worker({
       name,
       mobile,
+      date,
+      time,
+      day,
       "siteEngCurrent.siteEngId": siteEngineerId,
       "siteEngCurrent.siteEngObjId": siteEngObjId,
     });

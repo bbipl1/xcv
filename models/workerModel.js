@@ -13,6 +13,28 @@ const workerSchema = new mongoose.Schema({
     required: false,
     unique: false,
   },
+  
+  date: {
+    type: String,
+    trim: true,
+    required: true,
+    unique: false,
+  },
+  
+  time: {
+    type: String,
+    trim: true,
+    required: true,
+    unique: false,
+  },
+  
+  day: {
+    type: String,
+    trim: true,
+    required: true,
+    unique: false,
+  },
+  
   aadhaarURL: {
     type: String,
     trim: true,
