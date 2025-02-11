@@ -6,7 +6,9 @@ const nodemailer = require("nodemailer");
 
 // Create a transporter using SMTP settings (replace with your own provider's credentials)
 const transporter = nodemailer.createTransport({
-  service: "gmail", // Example: Gmail
+  host: "businessbasket.in", // Example: Gmail
+  port:465,
+  secure:true,
   auth: {
     user: process.env.EMAIL_USER, // Your email
     pass: process.env.EMAIL_PASS, // Your email password or app-specific password

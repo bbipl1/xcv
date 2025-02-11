@@ -22,6 +22,7 @@ const workerAttendPhotoUploadMiddleware = require('../middlewares/siteEng/manpow
 const getManPowerAttendance = require('../controllers/siteEngineer/ManpowerAttendance/getManPowAttendanceControllers');
 const updateDailyProgressReport = require('../controllers/siteEngineer/dailyProgressReport/updateDailyProgressReportControllers');
 const findDailyProgressReportByDate = require('../controllers/siteEngineer/dailyProgressReport/getDailyProgressReportByTodayDateControllers');
+const updateAmountForDailyProgressReport = require('../controllers/siteEngineer/dailyProgressReport/updateAmountForDailyProgressReportControllers');
 
 // Route to handle attendance form submission
 router.get('/get-all-site-engineers', getAllSiteEngineers);
@@ -32,6 +33,7 @@ router.get('/get-all-workers',getAllWorkers);
 router.get('/get-all-deleted-workers',getDeletedWorkers);
 router.post('/submit-daily-progress-report',submitDailyProgressReport);
 router.put('/update-daily-progress-report',updateDailyProgressReport);
+router.put('/update-amount-for-requirements-forms',updateAmountForDailyProgressReport);
 router.post('/submit-manpower-attendance',workerAttendPhotoUploadMiddleware, submitManpowerAttendControllers);
 router.get('/get-manpower-attendance', getManPowerAttendance);
 router.get('/get-all-daily-progress-report',findDailyProgressReport);
