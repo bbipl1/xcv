@@ -90,7 +90,7 @@ const schema = {
       trim: true,
       required: true,
       unique: false,
-      enum: ["Paid", "PartialPaid", "Unpaid"],
+      enum: ["Paid", "PartialPaid", "UnPaid"],
       default: "Unpaid",
     },
   },

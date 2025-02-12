@@ -6,7 +6,18 @@ const DailyProgressReportModel = require("../../../models/forms/DailyProgressRep
 const { getCurrentDateTime } = require("../../../config/date/dateFormate");
 
 // AWS SDK v3 configuration
-const dateFormate=getCurrentDateTime().dateFormate;
+
+let dateFormate=null;
+let timeIn12HourFormat=null;
+let day=null;
+
+const refreshTime=()=>{
+  dateFormate=getCurrentDateTime().dateFormate;
+  timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
+  day=getCurrentDateTime().dayName;
+
+}
+
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
   credentials: {
@@ -81,12 +92,21 @@ const updateDailyProgressReport = async (req, res) => {
       if (req.file) {
         expenses.qrURL = req.file.location; // Add the S3 file URL
       }
+      refreshTime();
 
       // Ensure the siteEngId is unique to avoid duplicate key error
       //   const filter={id,date}
       const filter = {
         $and: [{ id }, { date: dateFormate }],
       };
+
+      let currentStatus="UnPaid";
+      const currentRequired= Number(expenses?.required);
+      if(currentRequired===0){
+        currentStatus="Paid";
+      }
+
+      
 
       const reportData = {
         name,
@@ -101,13 +121,13 @@ const updateDailyProgressReport = async (req, res) => {
         expenses: {
           Category: expenses.type,
           qrURL: req.file.location,
-          status: expenses.status,
+          status: currentStatus,
           required: expenses.required,
           received: "0",
         },
-        date:getCurrentDateTime().dateFormate,
-        time:getCurrentDateTime().timeIn12HourFormat,
-        day:getCurrentDateTime().dayName,
+        date:dateFormate,
+        time:timeIn12HourFormat,
+        day:day,
         remarks,
       };
 
@@ -131,17 +151,17 @@ const updateDailyProgressReport = async (req, res) => {
         }
         return res
           .status(501)
-          .json({ message: "getting error while updating form" });
+          .json({ message: "getting error while updating the form" });
       }
 
       return res
         .status(404)
-        .json({ message: "Daily progress report not found" });
+        .json({ message: "Daily progress report is not found" });
     } catch (error) {
-      console.error("Error saving report:", error);
+      console.error("Error while saving report:", error);
       res
         .status(500)
-        .json({ message: "Error saving report", error: error.message });
+        .json({ message: "Internal server error", error: error.message });
     }
   });
 };

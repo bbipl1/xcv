@@ -52,7 +52,7 @@ const updateAmountForDailyProgressReport = async (req, res) => {
           status: "failed",
         });
     }
-    let currentStatus = "Unpaid";
+    let currentStatus = "UnPaid";
     if (updatedReceivedAmount === 0) {
       currentStatus = "UnPaid";
     } else if (

@@ -6,9 +6,20 @@ const DailyProgressReportModel = require("../../../models/forms/DailyProgressRep
 const {getCurrentDateTime}=require("../../../config/date/dateFormate")
 
 // AWS SDK v3 configuration
-const dateFormate=getCurrentDateTime().dateFormate;
-const timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
-const dayName=getCurrentDateTime().dayName;
+
+let dateFormate=null;
+let timeIn12HourFormat=null;
+let day=null;
+
+const refreshTime=()=>{
+  dateFormate=getCurrentDateTime().dateFormate;
+  timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
+  day=getCurrentDateTime().dayName;
+
+}
+// const dateFormate=getCurrentDateTime().dateFormate;
+// const timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
+// const dayName=getCurrentDateTime().dayName;
 
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
@@ -68,7 +79,9 @@ const submitDailyProgressReport = async (req, res) => {
         remarks
       } = req.body;
 
-      console.log(typeof Array(req.body.expenses.type))
+      console.log(" am")
+
+      refreshTime();
 
       // Parse the arrays and objects
     //   const parsedTodaysWork = JSON.parse(todaysWork || "[]");
@@ -88,7 +101,13 @@ const submitDailyProgressReport = async (req, res) => {
 
       // console.log('d',existingSiteEngineer)
       if (existingSiteEngineer) {
-        return res.status(400).json({ message: "Site Engineer already exists." });
+        return res.status(400).json({ message: "report already exists." });
+      }
+
+      let currentStatus="UnPaid";
+      const currentRequired= Number(expenses?.required);
+      if(currentRequired===0){
+        currentStatus="Paid";
       }
 
       // Prepare the report data
@@ -107,13 +126,13 @@ const submitDailyProgressReport = async (req, res) => {
         expenses : {
             Category:(expenses.type),
             qrURL:req.file.location,
-            status:"Unpaid",
+            status:currentStatus,
             required:expenses.required,
             received:"0",
         },
         date:dateFormate,
         time:timeIn12HourFormat,
-        day:dayName,
+        day:day,
         remarks
       };
 
@@ -124,16 +143,16 @@ const submitDailyProgressReport = async (req, res) => {
       const resp=await report.save();
       if(resp){
         // console.log(resp)
-          return res.status(201).json({ message: "Report submitted successfully", report });
+          return res.status(200).json({ message: "Report submitted successfully", report });
         }else{
             
-           return  res.status(402).json({ message: "Error", report });
+           return  res.status(402).json({ message: "Error saving report", report });
 
       }
 
     } catch (error) {
       console.error("Error saving report:", error);
-      res.status(500).json({ message: "Error saving report", error: error.message });
+      res.status(500).json({ message: "Intenal server error", error: error.message });
     }
   });
 };
