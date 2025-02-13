@@ -24,6 +24,8 @@ const updateDailyProgressReport = require('../controllers/siteEngineer/dailyProg
 const findDailyProgressReportByDate = require('../controllers/siteEngineer/dailyProgressReport/getDailyProgressReportByTodayDateControllers');
 const updateAmountForDailyProgressReport = require('../controllers/siteEngineer/dailyProgressReport/updateAmountForDailyProgressReportControllers');
 const deleteDailyProgressReportControllers = require('../controllers/siteEngineer/dailyProgressReport/deleteDailyProgressReportControllers');
+const submitHDDFormControllers = require('../controllers/siteEngineer/hddForms/submitHDDFormControllers');
+const getHDDFormControllers = require('../controllers/siteEngineer/hddForms/getHDDFormControllers');
 
 // Route to handle attendance form submission
 router.get('/get-all-site-engineers', getAllSiteEngineers);
@@ -44,6 +46,10 @@ router.post('/upload-payment-screenshots',upload,uploadPaymentScreenshots);
 router.post('/upload-photos',uploadPhotosMW,uploadPhotos);
 router.post('/upload-profile-pic',uploadProfilePicForSiteEng,updateProfilePicForSiteEngControllers);
 router.post('/upload-videos',uploadVideosMW,uploadVideo);
+
+//forms
+router.post("/submit-hdd-form",submitHDDFormControllers);
+router.get("/get-hdd-forms",getHDDFormControllers);
 
 
 

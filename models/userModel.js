@@ -8,11 +8,16 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  siteEngObjId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "SiteEngineers",
+    trim: true,
+  },
   name: {
     type: String,
     required: true,
     trim: true,
-    unique:false,
+    unique: false,
   },
   mobile: {
     type: String,
@@ -42,20 +47,20 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
     trim: true,
-    unique:false,
+    unique: false,
   },
   password: {
     type: String,
     required: true,
     trim: true,
-    unique:false,
+    unique: false,
   },
   token: {
     type: String,
     required: false,
     trim: true,
     default: null,
-    unique:false,
+    unique: false,
   },
   createdAt: {
     type: Date,
@@ -72,7 +77,7 @@ userSchema.pre("save", async function (next) {
 
 // Method to compare the entered password with the stored hashed password
 userSchema.methods.comparePassword = async function (password) {
-  console.log(password)
+  console.log(password);
   return await bcrypt.compare(password, this.password);
 };
 
