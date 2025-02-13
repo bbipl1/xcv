@@ -1,105 +1,121 @@
 const express = require("express");
-const User = require('./models/userModel');
+const { Server } = require("socket.io");
+const User = require("./models/userModel");
 const connectDB = require("./config/db");
 const cors = require("cors");
-// const multer=require("multer")
 const multer = require("multer");
 const dotenv = require("dotenv").config();
-const server = express();
-const PORT = process.env.PORT;
 
-//-------------------------------------
-// upload files start here
-//-------------------------------------------------------------------------
-const upload=multer();
-//-------------------------------------------------------------------------
-// upload files end here
-//-------------------------------------------------------------------------
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-//---------------------------------------------------------
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const attendanceRoutes = require('./routes/attendanceRoutes');
-const userRoutes = require('./routes/userRoutes');
-const endUserRoutes = require('./routes/endUser/endUserRouter');
-const mailRouter =require("./routes/mailRouter");
-const formsRouter=require('./routes/formsRouter');
-const sitesManagementRouter=require("./routes/sitesManagementRouter");
+// File Upload
+const upload = multer();
+
+// Routes
+const attendanceRoutes = require("./routes/attendanceRoutes");
+const userRoutes = require("./routes/userRoutes");
+const endUserRoutes = require("./routes/endUser/endUserRouter");
+const mailRouter = require("./routes/mailRouter");
+const formsRouter = require("./routes/formsRouter");
+const sitesManagementRouter = require("./routes/sitesManagementRouter");
 const attendanceOfDevAndFinRouter = require("./routes/attendanceOfDevAndFinRoutes");
 const siteEngineerRoutes = require("./routes/siteEngineerRoutes");
-const addSiteEng=require("./services/userService");
-const adminRoutes=require("./routes/adminRoutes");
-// Middleware
-server.use(cors());
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
+const addSiteEng = require("./services/userService");
+const adminRoutes = require("./routes/adminRoutes");
 
-//-----------------------Admin-Start---------------------------------
-server.use("/api/admin",adminRoutes)
-//-----------------------Admin-End-----------------------------------
-// Use the routes
-server.use('/api', attendanceRoutes); // router for attendance
-server.use('/api/attendance/dev-and-fin', attendanceOfDevAndFinRouter); // router for attendance
-server.use('/api', userRoutes); // router for users
-server.use('/api/email', mailRouter); // router for emails
-server.use('/api/forms', formsRouter); // router for forms
-server.use('/api/site-management',sitesManagementRouter ); // router for siteDetails
-//site-engineers
-server.use('/api/constructions/site-engineers',siteEngineerRoutes)
+// Admin Routes
+app.use("/api/admin", adminRoutes);
 
-//----------------START-END-USER-----------------------------------------------------------------------------------------
-server.use("/api/end-users",endUserRoutes)
-//----------------END-END-USER-------------------------------------------------------------------------------------------
+// Other API Routes
+app.use("/api", attendanceRoutes);
+app.use("/api/attendance/dev-and-fin", attendanceOfDevAndFinRouter);
+app.use("/api", userRoutes);
+app.use("/api/email", mailRouter);
+app.use("/api/forms", formsRouter);
+app.use("/api/site-management", sitesManagementRouter);
+app.use("/api/constructions/site-engineers", siteEngineerRoutes);
+app.use("/api/end-users", endUserRoutes);
 
-// Root endpoint to check if server is working fine
-server.get("/", (req, res) => {
+// Root endpoint
+app.get("/", (req, res) => {
     res.send("I am working fine");
 });
 
-//-------------------------------------------------------------------------------
-// services start
-//------------------------------------------------------------------------------
-
-addSiteEng()
-// Listen and connect to DB
-const startServer = async () => {
+// Start the server
+const startApp = async () => {
     try {
-        // Start the server
-        server.listen(PORT, async () => {
-            console.log("Server is listing on port: ", PORT);
-            await connectDB(); // Ensure the DB connection is successful
-            
-            // Check if the user already exists
-            const existingUser = await User.findOne({
-                $or: [
-                    { id: "BB0001" },  // Check for duplicate empId
-                    { mobile: "9415285000" }  // Check for duplicate empMobile
-                ]
+        // Connect to Database
+        await connectDB();
+
+        const server = app.listen(PORT, () => {
+            console.log(`✅ Server running on port: ${PORT}`);
+        });
+
+        // Initialize Socket.io with CORS support
+        const io = new Server(server, {
+            cors: {
+                origin: "*", // Adjust this in production (e.g., allow only frontend domain)
+                methods: ["GET", "POST"],
+            },
+        });
+
+        let users = {};
+
+        io.on("connection", (socket) => {
+            console.log("🔗 User connected:", socket.id);
+
+            // Receive and store user location
+            socket.on("updateLocation", (data) => {
+                const { userId, name, location } = data;
+                users[userId] = { userId, name, location };
+                io.emit("usersLocation", Object.values(users));
             });
 
-            if (existingUser) {
-                console.log("User already exists, skipping creation.");
-            } else {
-                // Create a new user (just an example)
-                const newUser = new User({
-                    id: "BB0001", // Example empId
-                    name: "Avnesh pratap singh", // Example name
-                    mobile: "9415285000", // Example mobile
-                    role: "admin", // Example role
-                    email: "rakesh@businessbasket.in", // Example email
-                    password: "Avnesh123@", // This will be hashed automatically in the model
-                    gender: "male", // This will be hashed automatically in the model
-                    department: "admin", // This will be hashed automatically in the model
-                });
-
-                // Save the new user to the database
-                await newUser.save();
-                console.log("New user added successfully");
-            }
+            // Handle user disconnection
+            socket.on("disconnect", () => {
+                console.log("❌ User disconnected:", socket.id);
+                for (let id in users) {
+                    if (users[id].socketId === socket.id) {
+                        delete users[id];
+                        break;
+                    }
+                }
+                io.emit("usersLocation", Object.values(users));
+            });
         });
+
+        // Add a default admin user if not exists
+        const existingUser = await User.findOne({
+            $or: [{ id: "BB0001" }, { mobile: "9415285000" }],
+        });
+
+        if (!existingUser) {
+            const newUser = new User({
+                id: "BB0001",
+                name: "Avnesh Pratap Singh",
+                mobile: "9415285000",
+                role: "admin",
+                email: "rakesh@businessbasket.in",
+                password: "Avnesh123@", // TODO: Hash this password!
+                gender: "male",
+                department: "admin",
+            });
+
+            await newUser.save();
+            console.log("✅ New admin user created successfully.");
+        } else {
+            console.log("ℹ️ Admin user already exists, skipping creation.");
+        }
     } catch (error) {
-        console.error("Error starting the server or connecting to DB:", error);
+        console.error("❌ Error starting the server or connecting to DB:", error);
     }
 };
 
-// Call the function to start the server
-startServer();
+// Start the application
+startApp();
