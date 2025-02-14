@@ -3,14 +3,14 @@ const User = require("../../../models/userModel");
 const addNewUser = async (req,res) => {
   try {
     let {id,name,mobile,email,department,role,gender,password}=req.body
-    id=id.trim();
-    name=name.trim();
-    mobile=mobile.trim();
-    email=email.trim();
-    department=department.trim();
-    role=role.trim();
-    gender=gender.trim();
-    password=password.trim();
+    id=id?.trim();
+    name=name?.trim();
+    mobile=mobile?.trim();
+    email=email?.trim();
+    department=department?.trim();
+    role=role?.trim();
+    gender=gender?.trim();
+    password=password?.trim();
 
     if(!id || !name || !mobile || !email || !department || !role || !gender || !password){
         return res.status(400).json({message:"All fields are required."});
