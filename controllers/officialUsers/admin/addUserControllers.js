@@ -12,7 +12,7 @@ const addNewUser = async (req,res) => {
     gender=gender?.trim();
     password=password?.trim();
 
-    if(!id || !name || !mobile || !email || !department || !role || !gender || !password){
+    if(!id || !name || !mobile  || !department || !role || !gender || !password){
         return res.status(400).json({message:"All fields are required."});
     }
     // const users=await User.find();
