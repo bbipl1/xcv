@@ -31,7 +31,6 @@ const schema = {
     required: true,
     unique: false,
   },
-
   siteLocation: {
     latitude: {
       type: String,

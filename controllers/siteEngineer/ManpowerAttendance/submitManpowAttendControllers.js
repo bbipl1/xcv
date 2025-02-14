@@ -1,4 +1,5 @@
 const siteEngAttendanceModel = require("../../../models/siteEngAttendanceModel");
+const SiteEngineers=require("../../../models/siteEngineerModel")
 const {getCurrentDateTime}=require("../../../config/date/dateFormate")
 
 const submitManpowerAttendControllers = async (req, res) => {
@@ -10,6 +11,14 @@ const submitManpowerAttendControllers = async (req, res) => {
     let files = req.files;
     // console.log(jsonWorker);
     // console.log(files);
+    //siteEngObjId is user's object id
+    //I have to use doc object id to populate the field
+    const filters={$and:[{siteEngId:siteEngID},{siteEngObjId}]};
+    const doc=await SiteEngineers.findOne(filters);
+    console.log(doc)
+    const docId=doc._id;
+
+
     const workersDetails = jsonWorker.map((worker) => {
       const matchingFile = files.find(
         (file) => file.fieldname === `photo_${worker.workerId}`
@@ -33,7 +42,7 @@ const submitManpowerAttendControllers = async (req, res) => {
     }
     const payLoads={
 
-        siteEngObjId,
+        siteEngObjId:docId,
         siteEngId:siteEngID,
         date:getCurrentDateTime().dateFormate,
         day:getCurrentDateTime().dayName,

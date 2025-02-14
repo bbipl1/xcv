@@ -13,14 +13,8 @@ const submitHDDFormControllers = async (req, res) => {
     const {
     siteEngId,
       siteEngObjId,
-      userName,
-      mobileNo,
       dateOfRequirements,
-      dia,
-      NoOfJobs,
-      meter,
-      rate,
-      amount,
+      hddDetails,
       paymentRec,
       paymentRecAmount,
       expenses,
@@ -32,16 +26,8 @@ const submitHDDFormControllers = async (req, res) => {
     if (
       !siteEngId ||
       !siteEngObjId ||
-      !userName ||
-      !mobileNo ||
       !dateOfRequirements ||
-      !dia ||
-      !NoOfJobs ||
-      !meter ||
-      !rate ||
-      !amount ||
       !paymentRec ||
-      !paymentRecAmount ||
       !expenses
      
     ) {
@@ -53,14 +39,8 @@ const submitHDDFormControllers = async (req, res) => {
     const payload = {
       siteEngId,
       siteEngObjId,
-      name:userName,
-      mobile:mobileNo,
       dateOfRequirements,
-      dia,
-      NoOfJobs,
-      meter,
-      rate,
-      amount,
+      hddDetails,
       'paymentRec.status':paymentRec,
       'paymentRec.amount':paymentRecAmount,
       expenses,

@@ -2,12 +2,25 @@ const HDDForm = require("../../../models/officials/siteEng/siteEngHDDFormModel")
 const getHDDFormControllers = async (req, res) => {
   try {
     const { id } = req.query;
+    console.log(req.query);
     let response = null;
     if (id) {
       // console.log("id is:",id)
-      response = await HDDForm.find({ siteEngId: id });
+      response = await HDDForm.find({ siteEngId: id }).populate({
+        path: "siteEngObjId",
+        populate: {
+          path: "siteEngObjId",
+          select: "name mobile email",
+        },
+      });
     } else {
-      response = await HDDForm.find();
+      response = await HDDForm.find().populate({
+        path: "siteEngObjId",
+        populate: {
+          path: "siteEngObjId",
+          select: "name mobile email",
+        },
+      });
     }
 
     if (response) {

@@ -12,22 +12,22 @@ const schema = {
   date: { type: String, trim: true, required: true, unique: false },
   time: { type: String, trim: true, required: true, unique: false },
   day: { type: String, trim: true, required: true, unique: false },
-  name: { type: String, trim: true, required: true, unique: false },
-  mobile: { type: String, trim: true, required: true, unique: false },
   dateOfRequirements: {
     type: String,
     trim: true,
     required: true,
     unique: false,
   },
-  dia: { type: String, trim: true, required: true, unique: false },
-  NoOfJobs: { type: String, trim: true, required: true, unique: false },
-  meter: { type: String, trim: true, required: true, unique: false },
-  rate: { type: String, trim: true, required: true, unique: false },
-  amount: { type: String, trim: true, required: true, unique: false },
+  hddDetails:[{
+    dia: { type: String, trim: true, required: true, unique: false },
+    meter: { type: String, trim: true, required: true, unique: false },
+    rate: { type: String, trim: true, required: true, unique: false },
+    amount: { type: String, trim: true, required: false, unique: false },
+  }],
+  
   paymentRec: {
     status: { type: String, trim: true, required: true, unique: false },
-    amount: { type: String, trim: true, required: true, unique: false },
+    amount: { type: String, trim: true, required: false, unique: false },
   },
 
   expenses:[ {
