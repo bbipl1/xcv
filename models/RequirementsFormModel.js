@@ -102,6 +102,41 @@ const requirementsFormSchema = new mongoose.Schema({
     trim: true,
     unique: false,
   },
+  paymentsDetails:{
+    URL: {
+      type: String,
+      required: false,
+      trim: true,
+      unique: false,
+      default:null
+      
+    },
+    RequiredAmt: {
+      type: String,
+      required: false,
+      trim: true,
+      unique: false,
+      default:"0"
+      
+    },
+    receivedAmt: {
+      type: String,
+      required: false,
+      trim: true,
+      unique: false,
+      default:"0"
+      
+    },
+    status: {
+      type: String,
+      required: false,
+      trim: true,
+      unique: false,
+      enum:["Pending","partial FulFilled","FulFilled"],
+      default:"Pending"
+      
+    },
+  },
   remarks: {
     type: String,
     required: false,
