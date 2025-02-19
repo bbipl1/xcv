@@ -14,6 +14,7 @@ const submitRequirementsForm = async (req, res) => {
             dateOfRequirement,
             materialUsed,
             requirements,
+            amount,
             remarks,
         } = req.body;
 
@@ -53,6 +54,7 @@ const submitRequirementsForm = async (req, res) => {
             dateOfRequirement,
             requirements,
             materialUsed,
+            "paymentsDetails.RequiredAmt": amount,
             remarks,
         };
 

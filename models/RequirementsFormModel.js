@@ -132,7 +132,7 @@ const requirementsFormSchema = new mongoose.Schema({
       required: false,
       trim: true,
       unique: false,
-      enum:["Pending","partial FulFilled","FulFilled"],
+      enum:["Pending","Partially FulFilled","FulFilled"],
       default:"Pending"
       
     },
