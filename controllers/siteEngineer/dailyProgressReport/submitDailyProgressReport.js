@@ -11,7 +11,7 @@ let dateFormate=null;
 let timeIn12HourFormat=null;
 let day=null;
 
-const refreshTime=()=>{
+const refreshTime=async()=>{
   dateFormate=getCurrentDateTime().dateFormate;
   timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
   day=getCurrentDateTime().dayName;
@@ -81,7 +81,7 @@ const submitDailyProgressReport = async (req, res) => {
 
       console.log(" am")
 
-      refreshTime();
+      await refreshTime();
 
       // Parse the arrays and objects
     //   const parsedTodaysWork = JSON.parse(todaysWork || "[]");
