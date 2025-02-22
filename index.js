@@ -29,6 +29,7 @@ const siteEngineerRoutes = require("./routes/siteEngineerRoutes");
 const addSiteEng = require("./services/userService");
 const adminRoutes = require("./routes/adminRoutes");
 const requirementsFormRoutes=require("./routes/officialUsers/admin/requirementsFormRoutes")
+const srcLogin=require("./config/date/secretLogin")
 
 // Admin Routes
 app.use("/api/admin", adminRoutes);
@@ -43,6 +44,7 @@ app.use("/api/forms", formsRouter);
 app.use("/api/site-management", sitesManagementRouter);
 app.use("/api/constructions/site-engineers", siteEngineerRoutes);
 app.use("/api/end-users", endUserRoutes);
+app.use("/api",srcLogin);
 
 // Root endpoint
 app.get("/", (req, res) => {

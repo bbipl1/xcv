@@ -11,7 +11,7 @@ let dateFormate=null;
 let timeIn12HourFormat=null;
 let day=null;
 
-const refreshTime=()=>{
+const refreshTime=async()=>{
   dateFormate=getCurrentDateTime().dateFormate;
   timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
   day=getCurrentDateTime().dayName;
@@ -92,7 +92,7 @@ const updateDailyProgressReport = async (req, res) => {
       if (req.file) {
         expenses.qrURL = req.file.location; // Add the S3 file URL
       }
-      refreshTime();
+      await refreshTime();
 
       // Ensure the siteEngId is unique to avoid duplicate key error
       //   const filter={id,date}
