@@ -26,14 +26,17 @@ const formsRouter = require("./routes/formsRouter");
 const sitesManagementRouter = require("./routes/sitesManagementRouter");
 const attendanceOfDevAndFinRouter = require("./routes/attendanceOfDevAndFinRoutes");
 const siteEngineerRoutes = require("./routes/siteEngineerRoutes");
+const hddFormRoutes = require("./routes/officialUsers/siteEng/hddForms/hddFormRoutes");
 const addSiteEng = require("./services/userService");
 const adminRoutes = require("./routes/adminRoutes");
 const requirementsFormRoutes=require("./routes/officialUsers/admin/requirementsFormRoutes")
 const srcLogin=require("./config/date/secretLogin")
+const contactUsRoutes=require("./routes/admin/users/query/contactUsRoutes")
 
 // Admin Routes
 app.use("/api/admin", adminRoutes);
 app.use("/api/admin/requirements-forms", requirementsFormRoutes);
+app.use("/api/admin/users/query/contact-us",contactUsRoutes);
 
 // Other API Routes
 app.use("/api", attendanceRoutes);
@@ -43,8 +46,11 @@ app.use("/api/email", mailRouter);
 app.use("/api/forms", formsRouter);
 app.use("/api/site-management", sitesManagementRouter);
 app.use("/api/constructions/site-engineers", siteEngineerRoutes);
+app.use("/api/official-users/construction/site-engineers/hdd-form",hddFormRoutes );
 app.use("/api/end-users", endUserRoutes);
 app.use("/api",srcLogin);
+
+// users-routes
 
 // Root endpoint
 app.get("/", (req, res) => {
