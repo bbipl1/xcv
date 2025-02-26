@@ -1,6 +1,6 @@
-const HDDFormModel = require("../../../../models/officials/siteEng/siteEngHDDFormModel");
+const HDDFormModel = require("../../../../../../models/officials/siteEng/siteEngHDDFormModel");
 
-const deleteHddForm = async (req, res) => {  
+const deleteHddReport = async (req, res) => {  
     try {
         const { docId } = req.query;
 
@@ -21,4 +21,4 @@ const deleteHddForm = async (req, res) => {
     }
 };
 
-module.exports = deleteHddForm;
+module.exports = deleteHddReport;
