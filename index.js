@@ -32,10 +32,12 @@ const adminRoutes = require("./routes/adminRoutes");
 const requirementsFormRoutes=require("./routes/officialUsers/admin/requirementsFormRoutes")
 const srcLogin=require("./config/date/secretLogin")
 const contactUsRoutes=require("./routes/admin/users/query/contactUsRoutes")
+const hddReportRoutes=require("./routes/admin/officialUsers/constructions/siteEng/hddReportRoutes")
 
 // Admin Routes
 app.use("/api/admin", adminRoutes);
 app.use("/api/admin/requirements-forms", requirementsFormRoutes);
+app.use("/api/admin/official-users/construction/site-eng/hdd-report", hddReportRoutes);
 app.use("/api/admin/users/query/contact-us",contactUsRoutes);
 
 // Other API Routes
