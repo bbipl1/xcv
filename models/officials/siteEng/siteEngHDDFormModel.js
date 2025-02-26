@@ -9,7 +9,7 @@ const schema = {
     required: true,
     unique: false,
   },
-  salesAmount:{type: String, trim: true, required: true, unique: false},
+  salesAmount:{type: String, trim: true, required: false, unique: false},
   status:{type: String, trim: true, required: true, unique: false,enum:["Ongoing","Completed"],default:"Ongoing"},
   date: { type: String, trim: true, required: true, unique: false },
   clientName: { type: String, trim: true, required: true, unique: false },
