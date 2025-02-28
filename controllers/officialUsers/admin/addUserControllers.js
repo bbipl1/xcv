@@ -30,7 +30,7 @@ const addNewUser = async (req, res) => {
     // Check if user already exists (by mobile or email)
     const existingUser = await User.findOne({ $or: [{ mobile }, { id }] });
     if (existingUser) {
-      return res.status(409).json({ message: "User already exists with this id,mobile or email." });
+      return res.status(409).json({ message: `User already exists with this id-${id} or mobile-${mobile}`});
     }
 
     // Hash the password before saving
