@@ -43,6 +43,12 @@ const userSchema = new mongoose.Schema({
     trim: true,
     unique: false,
   },
+  joiningYear: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false,
+  },
   email: {
     type: String,
     required: false,

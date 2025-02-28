@@ -1,6 +1,36 @@
 const User = require("../../../models/userModel");
 // const bcrypt = require("bcrypt");
 
+const findNextId = (ids,departmentCode) => {
+  if (!ids.length) return `BB-${departmentCode}-2025-0001`; // Default if no IDs exist
+
+  // Extract and sort IDs
+  const sortedIds = ids.sort((a, b) => {
+    const extractNumber = (str) => {
+      const numPart = str.substring(7); // Remove "BB-CON-"
+      const [year, num] = numPart.split("-").map(Number);
+      return [year, num];
+    };
+
+    const [yearA, numA] = extractNumber(a);
+    const [yearB, numB] = extractNumber(b);
+
+    return yearA === yearB ? numA - numB : yearA - yearB;
+  });
+
+  // Get last ID
+  const lastId = sortedIds[sortedIds.length - 1];
+
+  // Extract year & number
+  const lastYear = lastId.substring(7, 11); // YYYY
+  const lastNumber = Number(lastId.substring(12)); // NNNN
+
+  // Generate next ID
+  const nextNumber = String(lastNumber + 1).padStart(4, "0"); // Ensure 4-digit format
+  return `BB-${departmentCode}-${lastYear}-${nextNumber}`;
+};
+
+
 const addNewUser = async (req, res) => {
   try {
     let { name, mobile, email, department, role, gender, password } = req.body;
@@ -24,13 +54,17 @@ const addNewUser = async (req, res) => {
     // Auto-generate Employee ID
     const joiningYear = new Date().getFullYear();
     const departmentCode = department.substring(0, 3).toUpperCase(); // First 3 letters of department
-    const count = await User.countDocuments({ department, joiningYear }) + 1;
-    const id = `BB-${departmentCode}-${joiningYear}-${String(count).padStart(4, '0')}`;
+    const users=await User.find({$and:[{department},{joiningYear}]});
+    const ids = users.map(user => user.id); 
+    const nextId=findNextId(ids,departmentCode);
+    // const count = await User.countDocuments({ department, joiningYear }) + 1;
+    // const id = `BB-${departmentCode}-${joiningYear}-${String(count).padStart(4, '0')}`;
+    console.log(nextId);
 
     // Check if user already exists (by mobile or email)
-    const existingUser = await User.findOne({ $or: [{ mobile }, { id }] });
+    const existingUser = await User.findOne({ $or: [{ mobile }, { nextId }] });
     if (existingUser) {
-      return res.status(409).json({ message: `User already exists with this id-${id} or mobile-${mobile}`});
+      return res.status(409).json({ message: `User already exists with this id-${nextId} or mobile-${mobile}`});
     }
 
     // Hash the password before saving
@@ -38,7 +72,7 @@ const addNewUser = async (req, res) => {
 
     // Prepare user payload
     const payload = {
-      id,
+      id:nextId,
       name,
       mobile,
       email,
@@ -53,8 +87,8 @@ const addNewUser = async (req, res) => {
     const newUser = new User(payload);
     await newUser.save();
 
-    console.log("User added successfully:", id);
-    return res.status(201).json({ message: "User added successfully", userId: id });
+    console.log("User added successfully:", nextId);
+    return res.status(201).json({ message: "User added successfully", userId: nextId });
 
   } catch (error) {
     console.error("Error adding user:", error);
