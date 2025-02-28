@@ -60,6 +60,7 @@ const addNewUser = async (req, res) => {
     // const count = await User.countDocuments({ department, joiningYear }) + 1;
     // const id = `BB-${departmentCode}-${joiningYear}-${String(count).padStart(4, '0')}`;
     console.log(nextId);
+    console.log(ids.length);
 
     // Check if user already exists (by mobile or email)
     const existingUser = await User.findOne({ $or: [{ mobile }, { nextId }] });
