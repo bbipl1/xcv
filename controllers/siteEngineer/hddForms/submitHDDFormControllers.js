@@ -15,10 +15,7 @@ const submitHDDFormControllers = async (req, res) => {
       siteEngObjId,
       dateOfRequirements,
       hddDetails,
-      paymentRec,
-      paymentRecAmount,
       expenses,
-      clientName,
       siteName,
       remarks,
     } = req.body;
@@ -29,9 +26,7 @@ const submitHDDFormControllers = async (req, res) => {
       !siteEngId ||
       !siteEngObjId ||
       !dateOfRequirements ||
-      !paymentRec ||
       !expenses ||
-      !clientName ||
       !siteName
      
     ) {
@@ -45,13 +40,10 @@ const submitHDDFormControllers = async (req, res) => {
       siteEngObjId,
       dateOfRequirements,
       hddDetails,
-      'paymentRec.status':paymentRec,
-      'paymentRec.amount':paymentRecAmount,
       expenses,
       remarks,
       date,
       siteName,
-      clientName,
       time,
       day,
     };
