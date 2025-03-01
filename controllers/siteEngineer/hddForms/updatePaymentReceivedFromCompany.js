@@ -8,6 +8,7 @@ const updatePaymentReceivedFromCompany = async (req, res) => {
 
     let { docId, paymentRecFromCompany, companyName, paidBy } = req.body;
     docId = docId?.trim();
+    console.log(req.body)
     paymentRecFromCompany = paymentRecFromCompany?.trim();
     companyName = companyName?.trim();
     console.log(req.body);

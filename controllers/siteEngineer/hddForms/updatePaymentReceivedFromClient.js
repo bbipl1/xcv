@@ -12,7 +12,7 @@ const updatePaymentReceivedFromClient = async (req, res) => {
     paymentReceivedFromClient = paymentReceivedFromClient?.trim();
     clientName = clientName?.trim();
 
-    
+    console.log(req.body)
 
     if (!docId || !paymentReceivedFromClient || !clientName) {
       return res.status(400).json({ message: "All fields are required." });
@@ -31,6 +31,7 @@ const updatePaymentReceivedFromClient = async (req, res) => {
     const options={new:true}
 
     const response = await SiteEngHDDFormModel.findByIdAndUpdate(filter,payload,options);
+    console.log(response)
     if (response) {
       res.status(200).json({ message: "HDD form updated successfully." });
     } else {
