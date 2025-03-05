@@ -18,6 +18,11 @@ const submitHDDFormControllers = async (req, res) => {
       expenses,
       siteName,
       remarks,
+      clientName,
+      clientAmount,
+      companyName,
+      companyAmount,
+      paidBy
     } = req.body;
 
     console.log(req.body)
@@ -46,6 +51,19 @@ const submitHDDFormControllers = async (req, res) => {
       siteName,
       time,
       day,
+      'paymentReceivedFromClient.amount':String(clientAmount)?.trim(),
+      'paymentReceivedFromClient.clientName':clientName?.trim(),
+      'paymentReceivedFromClient.date':date,
+      'paymentReceivedFromClient.time':time,
+      'paymentReceivedFromClient.day':day,
+
+      'paymentReceivedFromCompany.amount':String(companyAmount)?.trim(),
+      'paymentReceivedFromCompany.companyName':String(companyName)?.trim(),
+      'paymentReceivedFromCompany.paidBy':String(paidBy)?.trim(),
+      'paymentReceivedFromCompany.date':date,
+      'paymentReceivedFromCompany.time':time,
+      'paymentReceivedFromCompany.day':day,
+
     };
 
     const newHddForm=new HDDForm(payload);

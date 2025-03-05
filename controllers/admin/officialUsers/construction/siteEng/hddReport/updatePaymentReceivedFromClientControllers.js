@@ -1,19 +1,19 @@
 const HDDForm = require("../../../../../../models/officials/siteEng/siteEngHDDFormModel");
-const updateclientName = async(req,res) => {
+const updatePaymentReceivedFromClientControllers = async(req,res) => {
   try {
-    let { clientName, docId } = req.body;
-    // console.log(req.body);
-    if (clientName) {
-        clientName = clientName.trim();
+    let { paymentRecFromClient, docId } = req.body;
+    console.log(req.body);
+    if (paymentRecFromClient) {
+        paymentRecFromClient = paymentRecFromClient.trim();
     }
     if (docId) {
       docId = docId.trim();
     }
-    if (!docId || !clientName) {
+    if (!docId || !paymentRecFromClient) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const filter=docId;
-    const payload={$set:{'paymentReceivedFromClient.clientName':clientName}};
+    const payload={$set:{'paymentReceivedFromClient.amount':paymentRecFromClient}};
     const queryOptions={new :true};
     const doc=await HDDForm.findByIdAndUpdate(filter,payload,queryOptions);
     if(doc){
@@ -27,4 +27,4 @@ const updateclientName = async(req,res) => {
   }
 };
 
-module.exports = updateclientName;
+module.exports = updatePaymentReceivedFromClientControllers;

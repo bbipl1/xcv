@@ -12,7 +12,7 @@ const updateSalesAmount = async(req,res) => {
       return res.status(400).json({ message: "All fields are required." });
     }
     const filter=docId;
-    const payload={$set:{salesAmount}};
+    const payload={$set:{'paymentReceivedFromCompany.amount':salesAmount}};
     const queryOptions={new :true};
     const doc=await HDDForm.findByIdAndUpdate(filter,payload,queryOptions);
     if(doc){
