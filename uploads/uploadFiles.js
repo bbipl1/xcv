@@ -20,7 +20,7 @@ const allowedFileTypes = ["image/jpeg","image/jpg", "image/png", "application/pd
 const fileFilter = (req, file, cb) => {
     // console.log(file)
   if (!allowedFileTypes.includes(file.mimetype)) {
-    return cb(new Error("Invalid file type. Only JPEG, PNG, and PDF files are allowed."), false);
+    return cb(new Error("Invalid file type. Only JPEG, PNG, PDF and MP4 files are allowed."), false);
   }
   cb(null, true);
 };

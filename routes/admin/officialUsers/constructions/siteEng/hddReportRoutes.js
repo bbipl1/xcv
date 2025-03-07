@@ -4,10 +4,12 @@ const updateclientName = require("../../../../../controllers/admin/officialUsers
 const updateSiteName = require("../../../../../controllers/admin/officialUsers/construction/siteEng/hddReport/updateSiteNameControllers");
 const deleteHddReport = require("../../../../../controllers/admin/officialUsers/construction/siteEng/hddReport/deleteSiteEngControllers");
 const updatePaymentReceivedFromClientControllers = require("../../../../../controllers/admin/officialUsers/construction/siteEng/hddReport/updatePaymentReceivedFromClientControllers");
+const updateHddMtrsControllers = require("../../../../../controllers/admin/officialUsers/construction/siteEng/hddReport/updateHddMtrsControllers");
 const router=express.Router();
 router.put("/update-payment-received-from-bbipl",updateSalesAmount);
 router.put("/update-client-name",updateclientName);
 router.put("/update-amount-received-from-client",updatePaymentReceivedFromClientControllers);
 router.put("/update-site-name",updateSiteName);
+router.put("/update-hdd-details",updateHddMtrsControllers);
 router.delete("/delete-report",deleteHddReport)
 module.exports=router;

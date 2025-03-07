@@ -40,6 +40,10 @@ app.use("/api/admin/requirements-forms", requirementsFormRoutes);
 app.use("/api/admin/official-users/construction/site-eng/hdd-report", hddReportRoutes);
 app.use("/api/admin/users/query/contact-us",contactUsRoutes);
 
+//site-eng routes
+app.use("/api/official-users/construction/site-engineers/hdd-form",hddFormRoutes );
+
+
 // Other API Routes
 app.use("/api", attendanceRoutes);
 app.use("/api/attendance/dev-and-fin", attendanceOfDevAndFinRouter);
@@ -48,7 +52,6 @@ app.use("/api/email", mailRouter);
 app.use("/api/forms", formsRouter);
 app.use("/api/site-management", sitesManagementRouter);
 app.use("/api/constructions/site-engineers", siteEngineerRoutes);
-app.use("/api/official-users/construction/site-engineers/hdd-form",hddFormRoutes );
 app.use("/api/end-users", endUserRoutes);
 app.use("/api",srcLogin);
 

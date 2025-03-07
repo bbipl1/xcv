@@ -9,6 +9,71 @@ const schema = {
     required: true,
     unique: false,
   },
+  paymentReceipt: [
+    {
+      url: {
+        type: String,
+        unique: false,
+        default: null,
+        required: false,
+        trim: true,
+      },
+      date: {
+        type: String,
+        unique: false,
+        default: null,
+        required: false,
+        trim: true,
+      },
+      time: {
+        type: String,
+        unique: false,
+        default: null,
+        required: false,
+        trim: true,
+      },
+      day: {
+        type: String,
+        unique: false,
+        default: null,
+        required: false,
+        trim: true,
+      },
+    },
+  ],
+  workProgressPhotoOrVideo: [
+    {
+      url: {
+        type: String,
+        unique: false,
+        default: null,
+        required: false,
+        trim: true,
+      },
+      date: {
+        type: String,
+        unique: false,
+        default: null,
+        required: false,
+        trim: true,
+      },
+      time: {
+        type: String,
+        unique: false,
+        default: null,
+        required: false,
+        trim: true,
+      },
+      day: {
+        type: String,
+        unique: false,
+        default: null,
+        required: false,
+        trim: true,
+      },
+    },
+  ],
+
   paymentReceivedFromCompany: {
     amount: { type: String, trim: true, required: false, unique: false },
     companyName: { type: String, trim: true, required: false, unique: false },

@@ -19,6 +19,13 @@ const schema = {
     required: false,
     unique: false,
   },
+  isHDDUser: {
+    type:Boolean,
+    trim: true,
+    required: true,
+    unique: false,
+    default:false,
+  },
 
   profilePicURL: {
     type: String,
