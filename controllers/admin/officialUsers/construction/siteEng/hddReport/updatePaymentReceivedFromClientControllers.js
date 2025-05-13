@@ -2,7 +2,7 @@ const HDDForm = require("../../../../../../models/officials/siteEng/siteEngHDDFo
 const updatePaymentReceivedFromClientControllers = async(req,res) => {
   try {
     let { paymentRecFromClient, docId } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     if (paymentRecFromClient) {
         paymentRecFromClient = paymentRecFromClient.trim();
     }

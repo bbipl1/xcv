@@ -89,7 +89,7 @@ const schema = {
     time: { type: String, trim: true, required: false, unique: false },
     day: { type: String, trim: true, required: false, unique: false },
   },
-  salesAmount: { type: String, trim: true, required: false, unique: false },
+  // salesAmount: { type: String, trim: true, required: false, unique: false },
   status: {
     type: String,
     trim: true,
