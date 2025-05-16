@@ -34,6 +34,10 @@ const srcLogin=require("./config/date/secretLogin")
 const contactUsRoutes=require("./routes/admin/users/query/contactUsRoutes")
 const hddReportRoutes=require("./routes/admin/officialUsers/constructions/siteEng/hddReportRoutes")
 
+//water managements import
+
+const waterManagementsRoutes=require("./routes/officialUsers/siteEng/managements/waterManagementsRoute")
+
 // Admin Routes
 app.use("/api/admin", adminRoutes);
 app.use("/api/admin/requirements-forms", requirementsFormRoutes);
@@ -56,6 +60,12 @@ app.use("/api/end-users", endUserRoutes);
 app.use("/api",srcLogin);
 
 // users-routes
+
+// managements route start here
+// water managements route start here
+app.use("/api/managements/water-management",waterManagementsRoutes) 
+// water managements route start end
+// managements route emd here
 
 // Root endpoint
 app.get("/", (req, res) => {
