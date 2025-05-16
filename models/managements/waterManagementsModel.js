@@ -3,6 +3,10 @@ const { default: mongoose } = require("mongoose");
 const waterDetailsFormate = {
   updatedDate: { type: String, unique: true, required: true, trim: true },
   quantity: { type: String, unique: false, required: true, trim: true },
+  rate: { type: String, unique: false, required: true, trim: true },
+  supplier: { type: String, unique: false, required: true, trim: true },
+  supplierMobileNo: { type: String, unique: false, required: true, trim: true },
+  paid:{type:Array},
   updatedBy: {
     type: mongoose.Schema.Types.ObjectId,
     unique: false,

@@ -3,19 +3,25 @@ const { getCurrentDateTime } = require("../../../config/date/dateFormate");
 const WaterDetails = require("../../../models/managements/waterManagementsModel");
 const submitWaterDetailsController=async(req,res)=>{
 try {
-    let {updatedDate,quantity,userId,remarks}=req.body;
+    let {updatedDate,quantity,userId,remarks,rate,supplier,supplierMobileNo}=req.body;
     updatedDate=updatedDate?.toString()?.trim();
     quantity=quantity?.toString()?.trim();
     userId=userId?.toString()?.trim();
     remarks=remarks?.toString()?.trim();
+    rate=rate?.toString()?.trim();
+    supplier=supplier?.toString()?.trim();
+    supplierMobileNo=supplierMobileNo?.toString()?.trim();
 
-    if(!updatedDate || !quantity || !userId || !remarks){
+    if(!updatedDate || !quantity || !userId || !remarks || !rate || !supplier || !supplierMobileNo){
         return res.status(400).json({status:"failed",err:"All fields are required."})
     }
 
     const dataToSave={
         updatedDate,
         quantity,
+        rate:rate,
+        supplier:supplier,
+        supplierMobileNo,
         updatedBy:userId,
         remarks,
         submittedDate:getCurrentDateTime().dateFormate,

@@ -9,6 +9,7 @@ try {
         data=await WaterDetails.find({updatedBy:id}).sort({ updatedDate: 1 });
     }else{
         data=await WaterDetails.find().populate("updatedBy").sort({ updatedDate: 1 });
+        // data=await WaterDetails.find().sort({ updatedDate: 1 });
     }
     console.log(data,id)
     return res.status(200).json({msg:"data fetched",status:"ok",data:data});
