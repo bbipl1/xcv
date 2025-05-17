@@ -2,23 +2,24 @@ module.exports = {
   getCurrentDateTime: () => {
     const dateNow = new Date();
 
-    // Date and day info in IST
-    const dateInIST = new Date(dateNow.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+    const options = { timeZone: "Asia/Kolkata" };
+    const locale = "en-IN";
 
-    const day = dateInIST.getDate().toString().padStart(2, "0");
-    const month = (dateInIST.getMonth() + 1).toString().padStart(2, "0");
-    const year = dateInIST.getFullYear();
-    const dateFormate = `${day}-${month}-${year}`;
-    const dayName = dateInIST.toLocaleString("en-US", { weekday: "long", timeZone: "Asia/Kolkata" });
-    const monthName = dateInIST.toLocaleString("en-US", { month: "long", timeZone: "Asia/Kolkata" });
+    const day = new Intl.DateTimeFormat(locale, { ...options, day: "2-digit" }).format(dateNow);
+    const month = new Intl.DateTimeFormat(locale, { ...options, month: "2-digit" }).format(dateNow);
+    const year = new Intl.DateTimeFormat(locale, { ...options, year: "numeric" }).format(dateNow);
+    const dayName = new Intl.DateTimeFormat("en-US", { ...options, weekday: "long" }).format(dateNow);
+    const monthName = new Intl.DateTimeFormat("en-US", { ...options, month: "long" }).format(dateNow);
 
-    const timeIn12HourFormat = dateInIST.toLocaleTimeString("en-US", {
-      hour: "numeric",      // no leading zero
+    const timeIn12HourFormat = dateNow.toLocaleTimeString("en-US", {
+      timeZone: "Asia/Kolkata",
+      hour: "numeric",
       minute: "2-digit",
       second: "2-digit",
-      hour12: true,
-      timeZone: "Asia/Kolkata",
+      hour12: true
     });
+
+    const dateFormate = `${day}-${month}-${year}`;
 
     return { day, dayName, month, monthName, year, dateFormate, timeIn12HourFormat };
   },
