@@ -24,20 +24,18 @@ const addSiteEng = async () => {
 
           try {
             //update siteEng in the user model
-            const alreadyExistId=user.siteEngObjId;
-            if(!alreadyExistId){
+            const alreadyExistId = user?.siteEngObjId;
+            if (!alreadyExistId) {
               user.siteEngObjId = existingSiteEng._id;
               const updatedUser = await user.save();
-              if(updatedUser){
-                console.log("user updated with new siteEngineer.")
-              }else{
-                console.log("unable to update with new siteEngineer.")
-
+              if (updatedUser) {
+                console.log("user updated with new siteEngineer.");
+              } else {
+                console.log("unable to update with new siteEngineer.");
               }
-            }else{
+            } else {
               console.log("user is up-to-date updated.");
             }
-           
           } catch (error) {
             console.log(error);
           }

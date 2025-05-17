@@ -82,6 +82,8 @@ const startApp = async () => {
             console.log(`✅ Server running on port: ${PORT}`);
         });
 
+        await addSiteEng()
+
         // Initialize Socket.io with CORS support
         const io = new Server(server, {
             cors: {

@@ -10,7 +10,7 @@ const updateProfilePicForSiteEngControllers = async (req, res) => {
  
       // Ensure file is uploaded successfully
 
-    //   console.log(req.body)
+      // console.log('body is',req.body)
       if (!req.files) {
           return res.status(400).json({ message: "No file uploaded." });
         }
@@ -21,13 +21,13 @@ const updateProfilePicForSiteEngControllers = async (req, res) => {
         if (!siteEngId) {
             return res.status(400).json({ message: "Site Engineer ID is required." });
         }
-        console.log(req.files)
-
-      // Find the Site Engineer by siteEngId
-      const siteEngineer = await SiteEngineersModel.findOne({ siteEngId });
-      if (!siteEngineer) {
-        return res.status(404).json({ message: "Site Engineer not found." });
-      }
+        
+        // Find the Site Engineer by siteEngId
+        const siteEngineer = await SiteEngineersModel.findOne({ siteEngId });
+        if (!siteEngineer) {
+          // console.log('i am here')
+          return res.status(404).json({ message: "Site Engineer not found." });
+        }
 
       // Update the profilePic field with the new file path
       siteEngineer.profilePicURL = req?.files?.profilePic[0]?.location; // Assuming the profilePic field stores file path
@@ -35,7 +35,7 @@ const updateProfilePicForSiteEngControllers = async (req, res) => {
 
       // Save the updated Site Engineer object
       await siteEngineer.save();
-      console.log(siteEngineer)
+      // console.log(siteEngineer)
 
       return res.status(200).json({
         message: "Profile picture updated successfully.",
