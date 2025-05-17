@@ -1,20 +1,19 @@
 module.exports = {
   getCurrentDateTime: () => {
-    // Get current UTC time and convert to IST (+5:30)
     const dateNow = new Date();
-    const utcTime = dateNow.getTime() + dateNow.getTimezoneOffset() * 60000;
-    const istOffset = 5.5 * 60 * 60000; // 5 hours 30 minutes in milliseconds
-    const istTime = new Date(utcTime + istOffset);
 
-    const day = istTime.getDate().toString().padStart(2, "0");
-    const month = (istTime.getMonth() + 1).toString().padStart(2, "0");
-    const year = istTime.getFullYear();
+    // Date and day info in IST
+    const dateInIST = new Date(dateNow.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+
+    const day = dateInIST.getDate().toString().padStart(2, "0");
+    const month = (dateInIST.getMonth() + 1).toString().padStart(2, "0");
+    const year = dateInIST.getFullYear();
     const dateFormate = `${day}-${month}-${year}`;
-    const dayName = istTime.toLocaleString("en-US", { weekday: "long", timeZone: "Asia/Kolkata" });
-    const monthName = istTime.toLocaleString("en-US", { month: "long", timeZone: "Asia/Kolkata" });
+    const dayName = dateInIST.toLocaleString("en-US", { weekday: "long", timeZone: "Asia/Kolkata" });
+    const monthName = dateInIST.toLocaleString("en-US", { month: "long", timeZone: "Asia/Kolkata" });
 
-    const timeIn12HourFormat = istTime.toLocaleTimeString("en-US", {
-      hour: "2-digit",
+    const timeIn12HourFormat = dateInIST.toLocaleTimeString("en-US", {
+      hour: "numeric",      // no leading zero
       minute: "2-digit",
       second: "2-digit",
       hour12: true,
