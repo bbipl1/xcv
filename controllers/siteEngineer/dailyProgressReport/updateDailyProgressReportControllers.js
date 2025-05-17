@@ -7,16 +7,6 @@ const { getCurrentDateTime } = require("../../../config/date/dateFormate");
 
 // AWS SDK v3 configuration
 
-let dateFormate=null;
-let timeIn12HourFormat=null;
-let day=null;
-
-const refreshTime=async()=>{
-  dateFormate=getCurrentDateTime().dateFormate;
-  timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
-  day=getCurrentDateTime().dayName;
-
-}
 
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
@@ -81,7 +71,6 @@ const updateDailyProgressReport = async (req, res) => {
         status,
       } = req.body;
 
-      console.log(typeof Array(req.body.expenses.type));
 
       // Parse the arrays and objects
       //   const parsedTodaysWork = JSON.parse(todaysWork || "[]");
@@ -92,12 +81,11 @@ const updateDailyProgressReport = async (req, res) => {
       if (req.file) {
         expenses.qrURL = req.file.location; // Add the S3 file URL
       }
-      await refreshTime();
 
       // Ensure the siteEngId is unique to avoid duplicate key error
       //   const filter={id,date}
       const filter = {
-        $and: [{ id }, { date: dateFormate }],
+        $and: [{ id }, { date: getCurrentDateTime().dateFormate }],
       };
 
       let currentStatus="UnPaid";
@@ -125,9 +113,9 @@ const updateDailyProgressReport = async (req, res) => {
           required: expenses.required,
           received: "0",
         },
-        date:dateFormate,
-        time:timeIn12HourFormat,
-        day:day,
+        date:getCurrentDateTime().dateFormate,
+        time:getCurrentDateTime().timeIn12HourFormat,
+        day:getCurrentDateTime().dayName,
         remarks,
       };
 
@@ -143,7 +131,7 @@ const updateDailyProgressReport = async (req, res) => {
           { upsert: true, new: true }
         );
         // const response=await updatedData.save();
-        console.log(response.modifiedCount);
+        // console.log(response.modifiedCount);
         if (response.modifiedCount) {
           return res
             .status(200)

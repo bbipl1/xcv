@@ -3,20 +3,12 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const path = require("path");
 const DailyProgressReportModel = require("../../../models/forms/DailyProgressReportModel");
-const {getCurrentDateTime}=require("../../../config/date/dateFormate")
+const { getCurrentDateTime } = require("../../../config/date/dateFormate");
 
 // AWS SDK v3 configuration
 
-let dateFormate=null;
-let timeIn12HourFormat=null;
-let day=null;
+let dateFormate = null;
 
-const refreshTime=async()=>{
-  dateFormate=getCurrentDateTime().dateFormate;
-  timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
-  day=getCurrentDateTime().dayName;
-
-}
 // const dateFormate=getCurrentDateTime().dateFormate;
 // const timeIn12HourFormat=getCurrentDateTime().timeIn12HourFormat;
 // const dayName=getCurrentDateTime().dayName;
@@ -42,7 +34,9 @@ const upload = multer({
   }),
   fileFilter: (req, file, cb) => {
     const fileTypes = /jpeg|jpg|png|pdf/;
-    const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    const extname = fileTypes.test(
+      path.extname(file.originalname).toLowerCase()
+    );
     const mimeType = fileTypes.test(file.mimetype);
 
     if (mimeType && extname) {
@@ -58,7 +52,9 @@ const submitDailyProgressReport = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
       console.error("File upload error:", err);
-      return res.status(400).json({ message: "File upload failed", error: err.message });
+      return res
+        .status(400)
+        .json({ message: "File upload failed", error: err.message });
     }
 
     try {
@@ -76,17 +72,13 @@ const submitDailyProgressReport = async (req, res) => {
         todaysWork,
         machinaryUsed,
         expenses,
-        remarks
+        remarks,
       } = req.body;
 
-      console.log(" am")
-
-      await refreshTime();
-
       // Parse the arrays and objects
-    //   const parsedTodaysWork = JSON.parse(todaysWork || "[]");
-    //   const parsedMachinaryUsed = JSON.parse(machinaryUsed || "[]");
-    //   const parsedExpenses = JSON.parse(JSON.stringify(expenses))
+      //   const parsedTodaysWork = JSON.parse(todaysWork || "[]");
+      //   const parsedMachinaryUsed = JSON.parse(machinaryUsed || "[]");
+      //   const parsedExpenses = JSON.parse(JSON.stringify(expenses))
 
       // Update the expenses object with the file URL if uploaded
       if (req.file) {
@@ -94,9 +86,10 @@ const submitDailyProgressReport = async (req, res) => {
       }
 
       // Ensure the siteEngId is unique to avoid duplicate key error
-    //   const filter={id,date}
+      //   const filter={id,date}
       const existingSiteEngineer = await DailyProgressReportModel.findOne({
-        id,date:dateFormate
+        id,
+        date: getCurrentDateTime().dateFormate,
       });
 
       // console.log('d',existingSiteEngineer)
@@ -104,10 +97,10 @@ const submitDailyProgressReport = async (req, res) => {
         return res.status(400).json({ message: "report already exists." });
       }
 
-      let currentStatus="UnPaid";
-      const currentRequired= Number(expenses?.required);
-      if(currentRequired===0){
-        currentStatus="Paid";
+      let currentStatus = "UnPaid";
+      const currentRequired = Number(expenses?.required);
+      if (currentRequired === 0) {
+        currentStatus = "Paid";
       }
 
       // Prepare the report data
@@ -123,36 +116,37 @@ const submitDailyProgressReport = async (req, res) => {
         workType,
         todaysWork: todaysWork,
         machinaryUsed: machinaryUsed,
-        expenses : {
-            Category:(expenses.type),
-            qrURL:req.file.location,
-            status:currentStatus,
-            required:expenses.required,
-            received:"0",
+        expenses: {
+          Category: expenses.type,
+          qrURL: req.file.location,
+          status: currentStatus,
+          required: expenses.required,
+          received: "0",
         },
-        date:dateFormate,
-        time:timeIn12HourFormat,
-        day:day,
-        remarks
+        date: getCurrentDateTime().dateFormate,
+        time: getCurrentDateTime().timeIn12HourFormat,
+        day: getCurrentDateTime().dayName,
+        remarks,
       };
 
       // console.log(reportData)
 
       // Save the report to MongoDB
-      const report = new  DailyProgressReportModel(reportData);
-      const resp=await report.save();
-      if(resp){
+      const report = new DailyProgressReportModel(reportData);
+      const resp = await report.save();
+      if (resp) {
         // console.log(resp)
-          return res.status(200).json({ message: "Report submitted successfully", report });
-        }else{
-            
-           return  res.status(402).json({ message: "Error saving report", report });
-
+        return res
+          .status(200)
+          .json({ message: "Report submitted successfully", report });
+      } else {
+        return res.status(402).json({ message: "Error saving report", report });
       }
-
     } catch (error) {
       console.error("Error saving report:", error);
-      res.status(500).json({ message: "Intenal server error", error: error.message });
+      res
+        .status(500)
+        .json({ message: "Intenal server error", error: error.message });
     }
   });
 };
