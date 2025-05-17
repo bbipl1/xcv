@@ -5,6 +5,7 @@ const User = require('../../models/userModel');
 // Login functionality using empId or empMobile
 const userLogin = async (req, res) => {
     const { empId, empMobile, empPassword,empDepartment } = req.body;
+    // throw new Error("Something went wrong");
     try {
         // Find user by empId or empMobile
         const user = await User.findOne({
@@ -27,6 +28,7 @@ const userLogin = async (req, res) => {
         }
 
         // Generate JWT token
+        // console.log(x)
         const token = jwt.sign(
             { userId: user._id, id: user.id, mobile: user.mobile },
             process.env.JWT_SECRET || 'your_jwt_secret', // Use your own secret key here
