@@ -4,7 +4,7 @@ const {getCurrentDateTime}=require("../../../config/date/dateFormate")
 
 const submitManpowerAttendControllers = async (req, res) => {
   try {
-    const {siteEngID,siteEngObjId,latitude,longitude}=req.body;
+    const {siteEngID,siteEngObjId,latitude,longitude,address}=req.body;
     // console.log(siteEngID,siteLocation)
     let workers = req.body.workers;
     let jsonWorker = JSON.parse(workers);
@@ -49,6 +49,7 @@ const submitManpowerAttendControllers = async (req, res) => {
         time:getCurrentDateTime().timeIn12HourFormat,
         'siteLocation.latitude':latitude,
         'siteLocation.longitude':longitude,
+        'siteLocation.address':address,
         URL:null,
         workers:finalWorkers
 

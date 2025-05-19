@@ -44,6 +44,12 @@ const schema = {
       required: true,
       unique: false,
     },
+    address: {
+      type: String,
+      trim: true,
+      required: true,
+      unique: false,
+    },
   },
 
   URL: {
