@@ -3,11 +3,17 @@ const SiteEngineersModel = require("../../models/siteEngineerModel");
 const getAllSiteEngineers = async (req, res) => {
   try {
     // Fetch all site engineers from the database
-    const siteEngineers = await SiteEngineersModel.find();
+    const { populate_user } = req.query;
+    let siteEngineers=null;
+    if (populate_user?.trim() === "true") {
+      siteEngineers = await SiteEngineersModel.find().populate("siteEngObjId").populate('workersCurrent').populate("workersOld");
+    } else {
+      siteEngineers = await SiteEngineersModel.find();
+    }
 
     // Check if data exists and send a response
     if (siteEngineers.length > 0) {
-      console.log("Site Engineers: ", siteEngineers);
+      // console.log("Site Engineers: ", siteEngineers);
       res.status(200).json({
         success: true,
         data: siteEngineers,
