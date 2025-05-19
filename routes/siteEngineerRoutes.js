@@ -26,6 +26,8 @@ const updateAmountForDailyProgressReport = require('../controllers/siteEngineer/
 const deleteDailyProgressReportControllers = require('../controllers/siteEngineer/dailyProgressReport/deleteDailyProgressReportControllers');
 const submitHDDFormControllers = require('../controllers/siteEngineer/hddForms/submitHDDFormControllers');
 const getHDDFormControllers = require('../controllers/siteEngineer/hddForms/getHDDFormControllers');
+const unlockEditableForWorkers = require('../controllers/siteEngineer/workers/unlockEditableForWorkers');
+const lockEditableForWorkers = require('../controllers/siteEngineer/workers/lockEditableForWorkers');
 
 // Route to handle attendance form submission
 router.get('/get-all-site-engineers', getAllSiteEngineers);
@@ -34,6 +36,8 @@ router.post('/add-worker',workerPhotoUpload, addWorker);
 router.put('/delete-worker',deleteWorkers);
 router.get('/get-all-workers',getAllWorkers);
 router.get('/get-all-deleted-workers',getDeletedWorkers);
+router.put('/unlock-worker-to-upload-images',unlockEditableForWorkers);
+router.put('/lock-worker-to-not-upload-images',lockEditableForWorkers);
 router.post('/submit-daily-progress-report',submitDailyProgressReport);
 router.put('/update-daily-progress-report',updateDailyProgressReport);
 router.put('/update-amount-for-daily-progress-report',updateAmountForDailyProgressReport);
